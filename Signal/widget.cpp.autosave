@@ -1,0 +1,25 @@
+#include "widget.h"
+#include "ui_widget.h"
+
+Widget::Widget(QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::Widget)
+{
+    ui->setupUi(this);
+    connect(this,&Widget::mysiganl,this,&Widget::handlesignal);
+    int i=100;
+    emit mysiganl();//通过emit + 信号函数 来发出信号。实际应用中放在合适的时机即可
+
+}
+
+Widget::~Widget()
+{
+    delete ui;
+}
+
+void Widget::handlesignal()
+{
+   qDebug() << "my signal has been called";
+    this->setWindowTitle("大帅哥");
+}
+
